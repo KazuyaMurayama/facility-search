@@ -75,44 +75,82 @@ export function MessageBubble({ message, onSuggestionClick }: MessageBubbleProps
 function MarkdownContent({ content }: { content: string }) {
   const lines = content.split("\n");
 
-  return (
-    <>
-      {lines.map((line, i) => {
-        if (line.startsWith("### ")) {
-          return (
-            <h3 key={i} className="font-bold text-base mt-3 mb-1">
-              {processInlineMarkdown(line.slice(4))}
-            </h3>
-          );
-        }
-        if (line.startsWith("## ")) {
-          return (
-            <h2 key={i} className="font-bold text-lg mt-3 mb-1">
-              {processInlineMarkdown(line.slice(3))}
-            </h2>
-          );
-        }
-        if (line.startsWith("- ")) {
-          return (
-            <div key={i} className="ml-3 flex">
-              <span className="mr-2">•</span>
-              <span>{processInlineMarkdown(line.slice(2))}</span>
-            </div>
-          );
-        }
-        if (line.startsWith("---")) {
-          return <hr key={i} className="my-2 border-gray-200" />;
-        }
-        if (line.trim() === "") {
-          return <div key={i} className="h-2" />;
-        }
-        return (
-          <div key={i}>
-            {processInlineMarkdown(line)}
-          </div>
+  // Parse code blocks first
+  const elements: React.ReactNode[] = [];
+  let inCodeBlock = false;
+  let codeLines: string[] = [];
+  let elementIndex = 0;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (line.startsWith("```")) {
+      if (inCodeBlock) {
+        // End code block
+        elements.push(
+          <pre key={`code-${elementIndex++}`} className="bg-gray-100 border border-gray-200 rounded-lg px-3 py-2 my-2 text-xs font-mono overflow-x-auto">
+            <code>{codeLines.join("\n")}</code>
+          </pre>
         );
-      })}
-    </>
+        codeLines = [];
+        inCodeBlock = false;
+      } else {
+        inCodeBlock = true;
+      }
+      continue;
+    }
+    if (inCodeBlock) {
+      codeLines.push(line);
+      continue;
+    }
+    // Regular line processing
+    elements.push(<MarkdownLine key={`line-${i}`} line={line} />);
+  }
+
+  // Unclosed code block
+  if (inCodeBlock && codeLines.length > 0) {
+    elements.push(
+      <pre key={`code-${elementIndex++}`} className="bg-gray-100 border border-gray-200 rounded-lg px-3 py-2 my-2 text-xs font-mono overflow-x-auto">
+        <code>{codeLines.join("\n")}</code>
+      </pre>
+    );
+  }
+
+  return <>{elements}</>;
+}
+
+function MarkdownLine({ line }: { line: string }) {
+  if (line.startsWith("### ")) {
+    return (
+      <h3 className="font-bold text-base mt-3 mb-1">
+        {processInlineMarkdown(line.slice(4))}
+      </h3>
+    );
+  }
+  if (line.startsWith("## ")) {
+    return (
+      <h2 className="font-bold text-lg mt-3 mb-1">
+        {processInlineMarkdown(line.slice(3))}
+      </h2>
+    );
+  }
+  if (line.startsWith("- ")) {
+    return (
+      <div className="ml-3 flex">
+        <span className="mr-2">•</span>
+        <span>{processInlineMarkdown(line.slice(2))}</span>
+      </div>
+    );
+  }
+  if (line.startsWith("---")) {
+    return <hr className="my-2 border-gray-200" />;
+  }
+  if (line.trim() === "") {
+    return <div className="h-2" />;
+  }
+  return (
+    <div>
+      {processInlineMarkdown(line)}
+    </div>
   );
 }
 
@@ -124,13 +162,14 @@ function processInlineMarkdown(text: string): React.ReactNode {
   while (remaining.length > 0) {
     const linkMatch = remaining.match(/\[([^\]]+)\]\(([^)]+)\)/);
     const boldMatch = remaining.match(/\*\*([^*]+)\*\*/);
+    const codeMatch = remaining.match(/`([^`]+)`/);
 
     type MatchInfo = { index: number; length: number; node: React.ReactNode };
     const candidates: MatchInfo[] = [];
 
     if (linkMatch && linkMatch.index !== undefined) {
       const href = linkMatch[2];
-      const isSafeHref = /^https?:\/\//.test(href);
+      const isSafeHref = /^(https?|vscode|cursor):\/\//.test(href);
       candidates.push({
         index: linkMatch.index,
         length: linkMatch[0].length,
@@ -160,6 +199,18 @@ function processInlineMarkdown(text: string): React.ReactNode {
           <strong key={`bold-${keyIndex++}`} className="font-semibold">
             {boldMatch[1]}
           </strong>
+        ),
+      });
+    }
+
+    if (codeMatch && codeMatch.index !== undefined) {
+      candidates.push({
+        index: codeMatch.index,
+        length: codeMatch[0].length,
+        node: (
+          <code key={`code-${keyIndex++}`} className="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-xs font-mono">
+            {codeMatch[1]}
+          </code>
         ),
       });
     }

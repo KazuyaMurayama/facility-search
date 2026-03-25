@@ -27,7 +27,7 @@ export async function runAgent(
   } catch {
     return {
       message:
-        "⚠️ ANTHROPIC_API_KEYが設定されていません。`.env.local`ファイルにAPIキーを設定してください。",
+        "⚠️ ANTHROPIC_API_KEYが設定されていません。\n\n[.env.local を開いてAPIキーを設定する](vscode://file/.env.local)\n\n設定例:\n```\nANTHROPIC_API_KEY=sk-ant-xxxxx\nGOOGLE_MAPS_API_KEY=AIzaxxxxx\n```",
     };
   }
 
