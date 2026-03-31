@@ -289,35 +289,39 @@ async function executeWebSearch(
     const query = input.query as string;
     const numResults = (input.num_results as number) ?? 5;
 
-    const apiKey = process.env.GOOGLE_MAPS_API_KEY;
-    const searchEngineId = process.env.GOOGLE_SEARCH_ENGINE_ID;
+    const apiKey = process.env.TAVILY_API_KEY;
 
-    if (!apiKey || !searchEngineId) {
+    if (!apiKey) {
       return {
-        content: `ウェブ検索（GOOGLE_SEARCH_ENGINE_ID未設定のためシミュレーション）: "${query}"\n\n注意: 実際のウェブ検索結果を取得するには、Google Custom Search APIのセットアップが必要です。現在はGoogle Places APIの情報のみ使用可能です。施設検索にはsearch_placesツールをご利用ください。`,
+        content: `ウェブ検索（TAVILY_API_KEY未設定のためシミュレーション）: "${query}"\n\n注意: 実際のウェブ検索結果を取得するには、TAVILY_API_KEYの設定が必要です。施設検索にはsearch_placesツールをご利用ください。`,
         webResults: [],
       };
     }
 
-    const url = new URL("https://www.googleapis.com/customsearch/v1");
-    url.searchParams.set("key", apiKey);
-    url.searchParams.set("cx", searchEngineId);
-    url.searchParams.set("q", query);
-    url.searchParams.set("num", String(Math.min(numResults, 10)));
-    url.searchParams.set("lr", "lang_ja");
-
-    const response = await fetch(url.toString());
+    const response = await fetch("https://api.tavily.com/search", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        api_key: apiKey,
+        query,
+        max_results: Math.min(numResults, 10),
+        search_depth: "basic",
+        include_answer: false,
+      }),
+    });
 
     if (!response.ok) {
-      throw new Error(`Google Search API error: ${response.status}`);
+      throw new Error(`Tavily API error: ${response.status}`);
     }
 
     const data = await response.json();
-    const webResults: WebSearchResult[] = (data.items ?? []).map(
-      (item: { title: string; link: string; snippet: string }) => ({
+    const webResults: WebSearchResult[] = (data.results ?? []).map(
+      (item: { title: string; url: string; content: string }) => ({
         title: item.title,
-        url: item.link,
-        snippet: item.snippet,
+        url: item.url,
+        snippet: item.content,
       })
     );
 
