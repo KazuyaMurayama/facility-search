@@ -1,92 +1,146 @@
-# FILE_INDEX.md — facility-search
+# FILE_INDEX — facility-search
 
-> **新セッション開始時に必ずこのファイルを読む。**
-> ファイル追加・削除・移動時は必ずこのファイルを更新すること。
-> 最終更新: 2026-04-30
+> ⚠️ このファイルは自動生成です。手動編集は次回更新で上書きされます。
 
-## 概要
-Next.js + Claude API + Google Maps APIを使った施設検索チャットアプリ。自然言語で施設を検索しGoogleマップ連携で経路も提供。
-
-**スタック:** TypeScript, Next.js, React, Tailwind CSS, Anthropic SDK, Google Maps API
-
----
-
-## 📋 最初に読むべきファイル
-
-| 優先度 | ファイル | 内容 |
-|---|---|---|
-| ★★★ | `CLAUDE.md` | 運用ルール・指針 |
-| ★★★ | `README.md` | セットアップ手順 |
-| ★★★ | `src/app/api/chat/route.ts` | チャットAPIルート（エージェント統合） |
-| ★★ | `src/lib/agent/index.ts` | Claude Agentメインロジック |
-| ★★ | `.env.example` | 環境変数テンプレート（API Key等） |
+| 項目 | 値 |
+|---|---|
+| リポジトリ | KazuyaMurayama/facility-search |
+| ブランチ | main |
+| 総ファイル数 | 38 |
+| 最終更新 | 2026-05-02 |
+| 管理者 | 男座員也（Kazuya Oza） |
 
 ---
 
-## 🗂️ ディレクトリ構造
+## カテゴリ別サマリー
+
+| カテゴリ | ファイル数 |
+|---|---|
+| Documentation | 6 |
+| Code | 22 |
+| Config | 6 |
+| Other | 4 |
+
+---
+
+## ディレクトリ構成
 
 ```
-facility-search/
-├── CLAUDE.md                    ← 最重要ルール
-├── README.md
-├── .env.example                 ← 環境変数テンプレート
+.
+├── src/
+│   ├── app/
+│   │   ├── api/
+│   │   │   └── chat/
+│   │   │       └── route.ts
+│   │   ├── fonts/
+│   │   │   ├── GeistMonoVF.woff
+│   │   │   └── GeistVF.woff
+│   │   ├── favicon.ico
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   └── page.tsx
+│   ├── components/
+│   │   ├── chat-panel.tsx
+│   │   ├── message-bubble.tsx
+│   │   ├── result-card.tsx
+│   │   ├── suggestion-chips.tsx
+│   │   └── web-result-card.tsx
+│   ├── hooks/
+│   │   └── use-chat.ts
+│   ├── lib/
+│   │   ├── agent/
+│   │   │   ├── index.ts
+│   │   │   ├── system-prompt.ts
+│   │   │   └── tools.ts
+│   │   ├── google/
+│   │   │   ├── directions.ts
+│   │   │   ├── geocoding.ts
+│   │   │   ├── places.ts
+│   │   │   └── types.ts
+│   │   └── utils/
+│   │       ├── format.ts
+│   │       └── map-links.ts
+│   └── types/
+│       └── index.ts
+├── .env.example
+├── .eslintrc.json
+├── .gitignore
+├── CLAUDE.md
+├── FILE_INDEX.md
 ├── next.config.mjs
-├── tailwind.config.ts
-├── tsconfig.json
+├── package-lock.json
 ├── package.json
-└── src/
-    ├── app/
-    │   ├── page.tsx
-    │   ├── layout.tsx
-    │   ├── globals.css
-    │   └── api/chat/route.ts    ← チャットAPIルート
-    ├── components/
-    │   ├── chat-panel.tsx
-    │   ├── message-bubble.tsx
-    │   ├── result-card.tsx
-    │   ├── suggestion-chips.tsx
-    │   └── web-result-card.tsx
-    ├── hooks/use-chat.ts
-    ├── lib/
-    │   ├── agent/
-    │   │   ├── index.ts         ← Agentメインロジック
-    │   │   ├── system-prompt.ts
-    │   │   └── tools.ts
-    │   ├── google/
-    │   │   ├── directions.ts
-    │   │   ├── geocoding.ts
-    │   │   ├── places.ts
-    │   │   └── types.ts
-    │   └── utils/
-    └── types/index.ts
+├── postcss.config.mjs
+├── README.md
+├── tailwind.config.ts
+├── tasks.md
+├── Timeout_Prevention.md
+├── tsconfig.json
+└── 小学校調査レポート_花小金井南町.md
 ```
 
 ---
 
-## 📑 全ファイル一覧
+## ファイル詳細
 
-| パス | 種別 | 説明 |
+### Documentation (6件)
+
+| ファイル | サイズ | 説明 |
 |---|---|---|
-| `src/app/page.tsx` | TypeScript | メインページコンポーネント |
-| `src/app/layout.tsx` | TypeScript | レイアウト |
-| `src/app/api/chat/route.ts` | TypeScript | チャットAPIエンドポイント |
-| `src/components/chat-panel.tsx` | TypeScript | チャットパネルUI |
-| `src/components/result-card.tsx` | TypeScript | 施設結果カードUI |
-| `src/hooks/use-chat.ts` | TypeScript | チャット状態管理フック |
-| `src/lib/agent/index.ts` | TypeScript | Claude Agentメインロジック |
-| `src/lib/agent/system-prompt.ts` | TypeScript | システムプロンプト |
-| `src/lib/agent/tools.ts` | TypeScript | ツール定義（施設検索等） |
-| `src/lib/google/places.ts` | TypeScript | Google Places API連携 |
-| `src/lib/google/directions.ts` | TypeScript | Google Directions API連携 |
-| `src/lib/google/geocoding.ts` | TypeScript | ジオコーディング |
-| `src/types/index.ts` | TypeScript | 型定義 |
-| `.env.example` | 設定 | 環境変数テンプレート |
-| `package.json` | 設定 | Node.js依存関係 |
+| `CLAUDE.md` | 5.2 KB | Claude Code プロジェクト設定・命名ルール |
+| `FILE_INDEX.md` | 3.5 KB | （このファイル）全ファイルインデックス |
+| `README.md` | 1.4 KB | リポジトリ概要・セットアップ手順 |
+| `tasks.md` | 1.2 KB | タスク管理・セッション履歴 |
+| `Timeout_Prevention.md` | 4.9 KB | タイムアウト対策ガイド |
+| `小学校調査レポート_花小金井南町.md` | 16.1 KB | Markdown ドキュメント |
+
+### Code (22件)
+
+| ファイル | サイズ | 説明 |
+|---|---|---|
+| `next.config.mjs` | 92 B | ファイル |
+| `postcss.config.mjs` | 135 B | ファイル |
+| `src/app/api/chat/route.ts` | 1.5 KB | TypeScript モジュール |
+| `src/app/layout.tsx` | 524 B | React コンポーネント |
+| `src/app/page.tsx` | 194 B | React コンポーネント |
+| `src/components/chat-panel.tsx` | 5.6 KB | React コンポーネント |
+| `src/components/message-bubble.tsx` | 6.4 KB | React コンポーネント |
+| `src/components/result-card.tsx` | 3.1 KB | React コンポーネント |
+| `src/components/suggestion-chips.tsx` | 643 B | React コンポーネント |
+| `src/components/web-result-card.tsx` | 1.0 KB | React コンポーネント |
+| `src/hooks/use-chat.ts` | 2.0 KB | TypeScript モジュール |
+| `src/lib/agent/index.ts` | 5.1 KB | TypeScript モジュール |
+| `src/lib/agent/system-prompt.ts` | 4.5 KB | TypeScript モジュール |
+| `src/lib/agent/tools.ts` | 13.5 KB | TypeScript モジュール |
+| `src/lib/google/directions.ts` | 1.2 KB | TypeScript モジュール |
+| `src/lib/google/geocoding.ts` | 1006 B | TypeScript モジュール |
+| `src/lib/google/places.ts` | 2.3 KB | TypeScript モジュール |
+| `src/lib/google/types.ts` | 1.8 KB | TypeScript モジュール |
+| `src/lib/utils/format.ts` | 1.3 KB | TypeScript モジュール |
+| `src/lib/utils/map-links.ts` | 663 B | TypeScript モジュール |
+| `src/types/index.ts` | 967 B | TypeScript モジュール |
+| `tailwind.config.ts` | 407 B | TypeScript モジュール |
+
+### Config (6件)
+
+| ファイル | サイズ | 説明 |
+|---|---|---|
+| `.env.example` | 209 B | 環境変数テンプレート |
+| `.eslintrc.json` | 61 B | JSON データ |
+| `.gitignore` | 391 B | Git 除外設定 |
+| `package-lock.json` | 207.7 KB | npm ロックファイル（自動生成） |
+| `package.json` | 563 B | npm パッケージ設定 |
+| `tsconfig.json` | 578 B | TypeScript コンパイラ設定 |
+
+### Other (4件)
+
+| ファイル | サイズ | 説明 |
+|---|---|---|
+| `src/app/favicon.ico` | 25.3 KB | ファイル |
+| `src/app/fonts/GeistMonoVF.woff` | 66.3 KB | ファイル |
+| `src/app/fonts/GeistVF.woff` | 64.7 KB | ファイル |
+| `src/app/globals.css` | 413 B | ファイル |
 
 ---
 
-## 🔖 ファイル更新ルール
-
-1. 新ファイル追加時: 該当セクションに1行追加
-2. ファイル削除・移動時: 該当行を削除または更新
-3. 更新後: `git add FILE_INDEX.md && git commit -m "docs: FILE_INDEX.md更新"`
+_自動生成: 2026-05-02 | 管理者: 男座員也（Kazuya Oza）_
