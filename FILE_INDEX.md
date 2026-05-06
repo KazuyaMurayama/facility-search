@@ -1,41 +1,27 @@
-# FILE_INDEX — facility-search
+# FILE INDEX - facility-search
 
-> ⚠️ このファイルは自動生成です。手動編集は次回更新で上書きされます。
+> 最終更新: 2026-05-06 | ファイル数: 39
 
-| 項目 | 値 |
-|---|---|
-| リポジトリ | KazuyaMurayama/facility-search |
-| ブランチ | main |
-| 総ファイル数 | 38 |
-| 最終更新 | 2026-05-02 |
-| 管理者 | 男座員也（Kazuya Oza） |
-
----
-
-## カテゴリ別サマリー
-
-| カテゴリ | ファイル数 |
-|---|---|
-| Documentation | 6 |
-| Code | 22 |
-| Config | 6 |
-| Other | 4 |
-
----
-
-## ディレクトリ構成
+## ディレクトリ構造 (depth=3)
 
 ```
 .
+├── .env.example
+├── .eslintrc.json
+├── .gitignore
+├── CLAUDE.md
+├── FILE_INDEX.md
+├── README.md
+├── Timeout_Prevention.md
+├── next.config.mjs
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
 ├── src/
 │   ├── app/
-│   │   ├── api/
-│   │   │   └── chat/
-│   │   │       └── route.ts
-│   │   ├── fonts/
-│   │   │   ├── GeistMonoVF.woff
-│   │   │   └── GeistVF.woff
+│   │   ├── api
 │   │   ├── favicon.ico
+│   │   ├── fonts
 │   │   ├── globals.css
 │   │   ├── layout.tsx
 │   │   └── page.tsx
@@ -48,99 +34,81 @@
 │   ├── hooks/
 │   │   └── use-chat.ts
 │   ├── lib/
-│   │   ├── agent/
-│   │   │   ├── index.ts
-│   │   │   ├── system-prompt.ts
-│   │   │   └── tools.ts
-│   │   ├── google/
-│   │   │   ├── directions.ts
-│   │   │   ├── geocoding.ts
-│   │   │   ├── places.ts
-│   │   │   └── types.ts
-│   │   └── utils/
-│   │       ├── format.ts
-│   │       └── map-links.ts
+│   │   ├── agent
+│   │   ├── google
+│   │   └── utils
 │   └── types/
 │       └── index.ts
-├── .env.example
-├── .eslintrc.json
-├── .gitignore
-├── CLAUDE.md
-├── FILE_INDEX.md
-├── next.config.mjs
-├── package-lock.json
-├── package.json
-├── postcss.config.mjs
-├── README.md
 ├── tailwind.config.ts
 ├── tasks.md
-├── Timeout_Prevention.md
 ├── tsconfig.json
+├── 医学体験施設レポート_花小金井40分以内_子ども向け.md
 └── 小学校調査レポート_花小金井南町.md
 ```
 
----
+## カテゴリ別ファイル一覧
 
-## ファイル詳細
+### Documentation (7件)
 
-### Documentation (6件)
-
-| ファイル | サイズ | 説明 |
+| ファイルパス | サイズ(bytes) | SHA |
 |---|---|---|
-| `CLAUDE.md` | 5.2 KB | Claude Code プロジェクト設定・命名ルール |
-| `FILE_INDEX.md` | 3.5 KB | （このファイル）全ファイルインデックス |
-| `README.md` | 1.4 KB | リポジトリ概要・セットアップ手順 |
-| `tasks.md` | 1.2 KB | タスク管理・セッション履歴 |
-| `Timeout_Prevention.md` | 4.9 KB | タイムアウト対策ガイド |
-| `小学校調査レポート_花小金井南町.md` | 16.1 KB | Markdown ドキュメント |
+| `CLAUDE.md` | 5284 | a7e60b6 |
+| `FILE_INDEX.md` | 5070 | d9f920f |
+| `README.md` | 1450 | e215bc4 |
+| `tasks.md` | 1192 | 6792655 |
+| `Timeout_Prevention.md` | 4989 | d690243 |
+| `医学体験施設レポート_花小金井40分以内_子ども向け.md` | 5057 | 480d2de |
+| `小学校調査レポート_花小金井南町.md` | 16535 | ec1bf52 |
 
-### Code (22件)
+### Code (20件)
 
-| ファイル | サイズ | 説明 |
+| ファイルパス | サイズ(bytes) | SHA |
 |---|---|---|
-| `next.config.mjs` | 92 B | ファイル |
-| `postcss.config.mjs` | 135 B | ファイル |
-| `src/app/api/chat/route.ts` | 1.5 KB | TypeScript モジュール |
-| `src/app/layout.tsx` | 524 B | React コンポーネント |
-| `src/app/page.tsx` | 194 B | React コンポーネント |
-| `src/components/chat-panel.tsx` | 5.6 KB | React コンポーネント |
-| `src/components/message-bubble.tsx` | 6.4 KB | React コンポーネント |
-| `src/components/result-card.tsx` | 3.1 KB | React コンポーネント |
-| `src/components/suggestion-chips.tsx` | 643 B | React コンポーネント |
-| `src/components/web-result-card.tsx` | 1.0 KB | React コンポーネント |
-| `src/hooks/use-chat.ts` | 2.0 KB | TypeScript モジュール |
-| `src/lib/agent/index.ts` | 5.1 KB | TypeScript モジュール |
-| `src/lib/agent/system-prompt.ts` | 4.5 KB | TypeScript モジュール |
-| `src/lib/agent/tools.ts` | 13.5 KB | TypeScript モジュール |
-| `src/lib/google/directions.ts` | 1.2 KB | TypeScript モジュール |
-| `src/lib/google/geocoding.ts` | 1006 B | TypeScript モジュール |
-| `src/lib/google/places.ts` | 2.3 KB | TypeScript モジュール |
-| `src/lib/google/types.ts` | 1.8 KB | TypeScript モジュール |
-| `src/lib/utils/format.ts` | 1.3 KB | TypeScript モジュール |
-| `src/lib/utils/map-links.ts` | 663 B | TypeScript モジュール |
-| `src/types/index.ts` | 967 B | TypeScript モジュール |
-| `tailwind.config.ts` | 407 B | TypeScript モジュール |
+| `src/app/api/chat/route.ts` | 1552 | e25749b |
+| `src/app/layout.tsx` | 524 | 529bb5c |
+| `src/app/page.tsx` | 194 | 15a143f |
+| `src/components/chat-panel.tsx` | 5697 | b9ff2ba |
+| `src/components/message-bubble.tsx` | 6545 | 5f41f57 |
+| `src/components/result-card.tsx` | 3202 | 0814ac4 |
+| `src/components/suggestion-chips.tsx` | 643 | 2c4efd7 |
+| `src/components/web-result-card.tsx` | 1057 | 58c5469 |
+| `src/hooks/use-chat.ts` | 2040 | 52667cd |
+| `src/lib/agent/index.ts` | 5258 | ffe7f0d |
+| `src/lib/agent/system-prompt.ts` | 4647 | 0d87bd4 |
+| `src/lib/agent/tools.ts` | 13869 | 43da03d |
+| `src/lib/google/directions.ts` | 1194 | 5b9f1cd |
+| `src/lib/google/geocoding.ts` | 1006 | f89fa96 |
+| `src/lib/google/places.ts` | 2363 | 177c349 |
+| `src/lib/google/types.ts` | 1806 | 87e548b |
+| `src/lib/utils/format.ts` | 1373 | afe8998 |
+| `src/lib/utils/map-links.ts` | 663 | 39295aa |
+| `src/types/index.ts` | 967 | 07f7559 |
+| `tailwind.config.ts` | 407 | 021c393 |
 
-### Config (6件)
+### Config (5件)
 
-| ファイル | サイズ | 説明 |
+| ファイルパス | サイズ(bytes) | SHA |
 |---|---|---|
-| `.env.example` | 209 B | 環境変数テンプレート |
-| `.eslintrc.json` | 61 B | JSON データ |
-| `.gitignore` | 391 B | Git 除外設定 |
-| `package-lock.json` | 207.7 KB | npm ロックファイル（自動生成） |
-| `package.json` | 563 B | npm パッケージ設定 |
-| `tsconfig.json` | 578 B | TypeScript コンパイラ設定 |
+| `.eslintrc.json` | 61 | 3722418 |
+| `.gitignore` | 391 | fd3dbb5 |
+| `package-lock.json` | 212661 | 589895a |
+| `package.json` | 563 | e37af0c |
+| `tsconfig.json` | 578 | 7b28589 |
+
+### Asset (3件)
+
+| ファイルパス | サイズ(bytes) | SHA |
+|---|---|---|
+| `src/app/favicon.ico` | 25931 | 718d6fe |
+| `src/app/fonts/GeistMonoVF.woff` | 67864 | f2ae185 |
+| `src/app/fonts/GeistVF.woff` | 66268 | 1b62daa |
 
 ### Other (4件)
 
-| ファイル | サイズ | 説明 |
+| ファイルパス | サイズ(bytes) | SHA |
 |---|---|---|
-| `src/app/favicon.ico` | 25.3 KB | ファイル |
-| `src/app/fonts/GeistMonoVF.woff` | 66.3 KB | ファイル |
-| `src/app/fonts/GeistVF.woff` | 64.7 KB | ファイル |
-| `src/app/globals.css` | 413 B | ファイル |
+| `.env.example` | 209 | 39f0bd5 |
+| `next.config.mjs` | 92 | 4678774 |
+| `postcss.config.mjs` | 135 | 1a69fd2 |
+| `src/app/globals.css` | 413 | 13d40b8 |
 
----
-
-_自動生成: 2026-05-02 | 管理者: 男座員也（Kazuya Oza）_
