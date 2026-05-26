@@ -57,7 +57,7 @@
 #### ルート計算（距離条件がある場合）
 出発地点が指定されている場合、Directions API でアクセス時間を計算する：
 ```bash
-export $(grep -v '^#' /home/user/facility-search/.env.local | xargs)
+export $(grep -v '^#' C:\Users\user\facility-search\.env.local | xargs)
 curl -s "https://maps.googleapis.com/maps/api/directions/json?origin=$(python3 -c 'import urllib.parse; print(urllib.parse.quote("出発地"))')&destination=$(python3 -c 'import urllib.parse; print(urllib.parse.quote("目的地"))')&mode=walking&language=ja&key=$GOOGLE_MAPS_API_KEY"
 ```
 mode: driving（車）, walking（徒歩）, bicycling（自転車）, transit（公共交通）
